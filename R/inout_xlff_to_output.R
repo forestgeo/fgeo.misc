@@ -260,9 +260,6 @@ xl_workbooks_to_chr <- function(dir_in) {
 
 commas <- function(...) paste0(..., collapse = ", ")
 
-misc_example <- function(path) {
-  system.file("extdata", path, package = "fgeo.misc")
-}
 
 each_list_item_is_df <- function(x) {
   if (!is.list(x) || is.data.frame(x)) {
@@ -273,4 +270,19 @@ each_list_item_is_df <- function(x) {
 
 has_class_df <- function(x) {
   any(grepl("data.frame", class(x)))
+}
+
+
+#' Path to directory containing example data.
+#'
+#' @param path Path to a file (with extension) from inst/extdata/.
+#'
+#' @return String (a path)
+#' @export
+#'
+#' @examples
+#' misc_example("xl")
+#' dir(misc_example("xl"))
+misc_example <- function(path) {
+  system.file("extdata", path, package = "fgeo.misc")
 }

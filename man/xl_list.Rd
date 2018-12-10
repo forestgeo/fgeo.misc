@@ -33,7 +33,6 @@ xl_list(path_xl)
 path_books <- misc_example("multiple_workbooks")
 dir(path_books)
 xlbooks_list(path_books)
-
 }
 \seealso{
 Other general functions to import data: \code{\link{rdata_df}},

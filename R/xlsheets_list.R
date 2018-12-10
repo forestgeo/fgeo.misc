@@ -34,7 +34,6 @@ xlsheets_list <- function(path) {
 #' path_books <- misc_example("multiple_workbooks")
 #' dir(path_books)
 #' xlbooks_list(path_books)
-#'
 #' @name xl_list
 NULL
 
