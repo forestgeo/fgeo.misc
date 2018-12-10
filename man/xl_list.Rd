@@ -36,5 +36,5 @@ xlbooks_list(path_books)
 }
 \seealso{
 Other general functions to import data: \code{\link{rdata_df}},
-  \code{\link{read_with}}, \code{\link{xlsheets_list}}
+  \code{\link{read_with}}
 }

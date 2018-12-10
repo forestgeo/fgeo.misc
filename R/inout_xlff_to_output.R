@@ -112,7 +112,7 @@ xlff_to_list <- function(dir_in, first_census = FALSE) {
 #' Do xlff_to_list() for each excel file.
 #' @noRd
 xlff_to_list_ <- function(file, first_census = FALSE) {
-  dfm_list <- fgeo.tool::nms_tidy(fgeo.tool::xlsheets_list(file))
+  dfm_list <- fgeo.tool::nms_tidy((file))
 
   if (first_census) {
     key <- key_first_census()
