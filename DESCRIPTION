@@ -25,10 +25,10 @@ Imports:
     rlang,
     writexl
 Suggests: 
+    covr,
     testthat
 Remotes: 
     forestgeo/fgeo.tool
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
-
