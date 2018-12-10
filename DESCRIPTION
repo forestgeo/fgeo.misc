@@ -13,3 +13,5 @@ Description: Miscellaneous functions.
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
+URL: https://github.com/forestgeo/fgeo.misc
+BugReports: https://github.com/forestgeo/fgeo.misc/issues
