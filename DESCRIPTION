@@ -19,5 +19,12 @@ Suggests:
     testthat
 Imports: 
     purrr,
-    measurements
+    measurements,
+    rlang,
+    readxl,
+    dplyr,
+    fs,
+    fgeo.tool
 RoxygenNote: 6.1.1
+Remotes:  
+    forestgeo/fgeo.tool
