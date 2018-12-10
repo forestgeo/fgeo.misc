@@ -1,0 +1,15 @@
+Package: fgeo.misc
+Title: Miscellaneous Functions
+Version: 0.0.0.9000
+Authors@R: 
+    c(person(given = "Mauro",
+             family = "Lepore",
+             role = c("aut", "ctr", "cre"),
+             email = "leporem@si.edu"),
+      person(given = "CTFS-ForestGEO",
+             role = "cph",
+             email = "ForestGEO@si.edu"))
+Description: Miscellaneous functions.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
