@@ -41,7 +41,7 @@ test_that("works as expected", {
     "extdata", "new_stem_1/new_stem_1.xlsx", package = "fgeo.misc"
   )
   path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- path_to_extdata
+  input <- misc_example("new_stem_1")
   output <- tempdir()
 
   expect_silent(xlff_to_xl(input, output))
