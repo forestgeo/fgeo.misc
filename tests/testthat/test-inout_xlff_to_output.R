@@ -2,23 +2,11 @@ library(dplyr)
 library(purrr)
 library(readr)
 library(fs)
-library(readxl)
-
-# Using sheets stored in the system.
-path_to_example <- system.file(
-  "extdata", "two_files/new_stem_1.xlsx", package = "fgeo.misc"
-)
-path_to_extdata <- fs::path(sub(basename(path_to_example), "", path_to_example))
-
-# This should be the path to the directory containing the excel files
-sheets_directory <- path_to_extdata
-
-
 
 context("xlff_to_list")
 
 test_that("outputs expected dataframe", {
-  out <- xlff_to_list(sheets_directory)
+  out <- xlff_to_list(misc_example("two_files"))
   expect_is(out, "list")
 
   nms <- c(
@@ -36,15 +24,9 @@ test_that("outputs expected dataframe", {
 context("xlff_to_xl")
 
 test_that("works as expected", {
-  # Create paths
-  path_to_example <- system.file(
-    "extdata", "new_stem_1/new_stem_1.xlsx", package = "fgeo.misc"
-  )
-  path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- misc_example("new_stem_1")
   output <- tempdir()
 
-  expect_silent(xlff_to_xl(input, output))
+  expect_silent(xlff_to_xl(misc_example("new_stem_1"), output))
 
   # Check output
   files <- dir(output)
@@ -65,8 +47,6 @@ test_that("errs if `dir` does not exist", {
   )
 })
 
-
-
 test_that("errs without excel file", {
   # Empty tempdir()
   file_delete(dir_ls(tempdir()))
@@ -75,7 +55,6 @@ test_that("errs without excel file", {
   expect_error(xlff_to_csv(tempdir()), msg)
 })
 
-
 test_that("errs with informative message with input of wrong type", {
   not_a_string <- 1
   expect_error(xlff_to_csv(not_a_string))
@@ -83,20 +62,11 @@ test_that("errs with informative message with input of wrong type", {
 })
 
 test_that("works as expected", {
-  # Create paths
-  path_to_example <- system.file(
-    "extdata", "new_stem_1/new_stem_1.xlsx", package = "fgeo.misc"
-  )
-  path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- path_to_extdata
   output <- tempdir()
-
-  # Do work
   expect_silent(
-    xlff_to_csv(input, output)
+    xlff_to_csv(misc_example("new_stem_1"), output)
   )
 
-  # Check output
   files <- dir(output)
   matching_file <- file <- files[grepl("^new_stem_1.*csv$", files)]
   expect_true(length(matching_file) > 0)
@@ -107,37 +77,27 @@ test_that("works as expected", {
 })
 
 test_that("warns if it detects no new stem and fills cero-row dataframes", {
-  path_to_example <- system.file(
-    "extdata", "new_stem_0/new_stem_0.xlsx", package = "fgeo.misc"
-  )
-  path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- path_to_extdata
   output <- tempdir()
-
-  expect_warning(xlff_to_csv(input, output), "new_secondary_stems")
-  expect_warning(xlff_to_csv(input, output), "Filling every cero-row")
+  expect_warning(
+    xlff_to_csv(misc_example("new_stem_0"), output),
+    "new_secondary_stems"
+  )
+  expect_warning(
+    xlff_to_csv(misc_example("new_stem_0"), output),
+    "Filling every cero-row"
+  )
 })
 
 test_that("warns if it detects no recruits (#11)", {
-  path_to_example <- system.file(
-    "extdata", "recruits_none/recruits_none.xlsx", package = "fgeo.misc"
+  expect_warning(
+    xlff_to_csv(misc_example("recruits_none"), tempdir()),
+    "recruits"
   )
-  path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- path_to_extdata
-  output <- tempdir()
-
-  expect_warning(xlff_to_csv(input, output), "recruits")
 })
 
 test_that("outputs column date (#12)", {
-  path_to_example <- system.file(
-    "extdata", "new_stem_1/new_stem_1.xlsx", package = "fgeo.misc"
-  )
-  path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- path_to_extdata
   output <- tempdir()
-
-  xlff_to_csv(input, output)
+  xlff_to_csv(misc_example("new_stem_1"), output)
 
   exported <- read_csv(fs::path(output, "new_stem_1.csv"))
   expect_true(any(grepl("date", names(exported))))
@@ -145,14 +105,8 @@ test_that("outputs column date (#12)", {
 })
 
 test_that("outputs column codes with commas replaced by semicolon (#13)", {
-  path_to_example <- system.file(
-    "extdata", "new_stem_1/new_stem_1.xlsx", package = "fgeo.misc"
-  )
-  path_to_extdata <- sub(basename(path_to_example), "", path_to_example)
-  input <- path_to_extdata
   output <- tempdir()
-
-  xlff_to_csv(input, output)
+  xlff_to_csv(misc_example("new_stem_1"), output)
 
   exported <- read_csv(fs::path(output, "new_stem_1.csv"))
 
@@ -166,9 +120,8 @@ test_that("outputs column codes with commas replaced by semicolon (#13)", {
 })
 
 test_that("allows first_census", {
-  `dir` <- dirname(misc_example("first_census/census.xlsx"))
   output_dir <- tempdir()
-  out <- xlff_to_list(`dir`, first_census = TRUE)[[1]]
+  out <- xlff_to_list(misc_example("first_census"), first_census = TRUE)[[1]]
 
   nms <- c(
     "submission_id", "quadrat", "tag", "stem_tag", "species",
@@ -180,9 +133,8 @@ test_that("allows first_census", {
 })
 
 test_that("passes with input missing key sheets (#33)", {
-  `dir` <- dirname(misc_example("missing_key/recensus.xlsx"))
   expect_warning(
-    xlff_to_list(`dir`),
+    xlff_to_list(misc_example("missing_key")),
     "Adding missing sheets: original_stems, new_secondary_stems, recruits, root"
   )
 })
