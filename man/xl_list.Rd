@@ -35,6 +35,5 @@ dir(path_books)
 xlbooks_list(path_books)
 }
 \seealso{
-Other general functions to import data: \code{\link{rdata_df}},
-  \code{\link{read_with}}
+Other general functions to import data: \code{\link{read_with}}
 }

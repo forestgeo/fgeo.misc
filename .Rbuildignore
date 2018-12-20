@@ -1,3 +1,5 @@
+^\.buildignore$
+^fgeo\.misc\.Rproj$
+^\.github$
 ^\.travis\.yml$
-^fgeo\.Rproj$
 ^\.Rproj\.user$

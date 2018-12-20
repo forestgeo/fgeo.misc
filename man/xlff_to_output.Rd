@@ -19,18 +19,18 @@ to read from.}
 
 \item{dir_out}{String giving the directory where to write .csv files to.}
 
-\item{first_census}{Use `TRUE` if this is your first census. Use `FALSE`
+\item{first_census}{Use \code{TRUE} if this is your first census. Use \code{FALSE}
 (default) if this is not your first census but a recensus.}
 }
 \value{
-`xlff_to_csv()` and `xlff_to_xl()` write a .csv or excel (.xlsx) file
-  per workbook -- combining all spreadsheets. `xlff_to_list` outputs a list
-  where each dataframes combines all spreadsheeets of a workbook.
+\code{xlff_to_csv()} and \code{xlff_to_xl()} write a .csv or excel (.xlsx) file
+per workbook -- combining all spreadsheets. \code{xlff_to_list} outputs a list
+where each dataframes combines all spreadsheeets of a workbook.
 }
 \description{
 These functions read and wrangle excel workbooks produced by the FastField
-app and output dataframes (`xlff_to_list()` and `xlff_to_df()`), .csv files
-(`xlff_to_csv()`) or .xlsx files (`xlff_to_xl()`). Each dataframe or file
+app and output dataframes (\code{xlff_to_list()} and \code{xlff_to_df()}), .csv files
+(\code{xlff_to_csv()}) or .xlsx files (\code{xlff_to_xl()}). Each dataframe or file
 combines all spreadsheets from a single excel workbook in the input
 directory. If the input directory has multiple workbooks, the output will be
 multiple dataframes, multiple .csv files, or multiple .excel files.
@@ -38,23 +38,29 @@ multiple dataframes, multiple .csv files, or multiple .excel files.
 \details{
 This is a rigid function with a very specific goal: To process data from
 FastField forms. Specifically, this is what this function does:
-* Reads each spreadsheet from each workbook and map it to a dataframe.
-* Lowercases and links the names of each dataframe.
-* Adds any missing __key-sheets__:
-    * For first census: (1) "root", (2) "multi_stems", (3) "secondary_stems",
-    and (4) "single_stems".
-    * For recensus: (1) "root", (2) "original_stems", (3)
-    "new_secondary_stems", and (4) "recruits"
-* Dates the data by `submission_id` (`date` comes from the spreadsheet
-`root`).
-* Lowercases and links the names of each dataframe-variable.
-* Drops fake stems.
-* Output a common data structure of your choice.
+\itemize{
+\item Reads each spreadsheet from each workbook and map it to a dataframe.
+\item Lowercases and links the names of each dataframe.
+\item Adds any missing \strong{key-sheets}:
+\itemize{
+\item For first census: (1) "root", (2) "multi_stems", (3) "secondary_stems",
+and (4) "single_stems".
+\item For recensus: (1) "root", (2) "original_stems", (3)
+"new_secondary_stems", and (4) "recruits"
+}
+\item Dates the data by \code{submission_id} (\code{date} comes from the spreadsheet
+\code{root}).
+\item Lowercases and links the names of each dataframe-variable.
+\item Drops fake stems.
+\item Output a common data structure of your choice.
+}
 }
 \section{Acknowledgment}{
 
-* Sabrina Russo helped to make these functions useful with first censuses.
-* David Orwig helped to fix a debug.
+\itemize{
+\item Sabrina Russo helped to make these functions useful with first censuses.
+\item David Orwig helped to fix a debug.
+}
 }
 
 \examples{
