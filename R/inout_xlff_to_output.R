@@ -112,7 +112,7 @@ xlff_to_list <- function(dir_in, first_census = FALSE) {
 #' Do xlff_to_list() for each excel file.
 #' @noRd
 xlff_to_list_ <- function(file, first_census = FALSE) {
-  dfm_list <- fgeo.tool::nms_tidy(xlsheets_list(file))
+  dfm_list <- nms_tidy(xlsheets_list(file))
 
   if (first_census) {
     key <- key_first_census()
@@ -125,7 +125,7 @@ xlff_to_list_ <- function(file, first_census = FALSE) {
   # Piping functions to avoid useless intermediate variables
   clean_dfm_list <- dfm_list %>%
     purrr::keep(~!purrr::is_empty(.)) %>%
-    lapply(fgeo.tool::nms_tidy) %>%
+    lapply(nms_tidy) %>%
     drop_fake_stems()
 
   # After dropping fake stems new_secondary_stems might be empty (0-row)
@@ -286,3 +286,13 @@ has_class_df <- function(x) {
 misc_example <- function(path) {
   system.file("extdata", path, package = "fgeo.misc")
 }
+
+nms_tidy <- function(x) {
+  if (rlang::is_named(x)) {
+    names(x) <- gsub(" ", "_", tolower(names(x)))
+    return(x)
+  }
+  
+  gsub(" ", "_", tolower(x))
+}
+

@@ -21,10 +21,10 @@ positions. Only those elements corresponding to \code{.at} will be
 modified.}
 }
 \value{
-An object with the same structure as `x` (vector or dataframe).
+An object with the same structure as \code{x} (vector or dataframe).
 }
 \description{
-`convert_unit()` of a vector or `convert_unit_at()` specific columns of a
+\code{convert_unit()} of a vector or \code{convert_unit_at()} specific columns of a
 dataframe.
 }
 \examples{
@@ -41,7 +41,7 @@ convert_unit_at(dfm, .at = c("dbh", "name"), from = "mm2", to = "hectare")
 convert_unit_at(dfm, .at = names(dfm), from = "mm2", to = "hectare")
 }
 \seealso{
-[measurements::conv_unit()], [purrr::map_at()].
+\code{\link[measurements:conv_unit]{measurements::conv_unit()}}, \code{\link[purrr:map_at]{purrr::map_at()}}.
 
 Other general functions to perform common transforms: \code{\link{standardize_at}}
 }
