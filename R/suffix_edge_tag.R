@@ -40,8 +40,9 @@ suffix_tags_beyond_edge <- function(x, .match, suffix, x_q = 20, y_q = x_q) {
     is.numeric(x_q),
     is.numeric(y_q)
   )
-  x <- nms_lowercase(x)
-  check_crucial_names(x, c("status", "tag", "qx", "qy"))
+  # FIXME :::
+  x <- fgeo.tool:::nms_lowercase(x)
+  fgeo.tool::check_crucial_names(x, c("status", "tag", "qx", "qy"))
 
   spillover_status <- detect_spillover(x = x, x_q = x_q, y_q = y_q)
   if (spillover_status == FALSE) {
@@ -51,13 +52,15 @@ suffix_tags_beyond_edge <- function(x, .match, suffix, x_q = 20, y_q = x_q) {
     are_to_tag <- detect_to_tag(x = x, x_q = x_q, y_q = y_q)
     to_tag <- x[are_to_tag, ]
     # Suffix edgy tags
-    x[are_to_tag, "tag"] <- suffix_match(
+    # FIXME :::
+    x[are_to_tag, "tag"] <- fgeo.map:::suffix_match(
       string = to_tag[["tag"]], 
       to_match = to_tag[["status"]], 
       .match = .match,
       suffix = suffix
     )
-    nms_restore(x)
+    # FIXME :::
+    fgeo.tool:::nms_restore(x)
   }
 }
 

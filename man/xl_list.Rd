@@ -13,7 +13,14 @@ xlbooks_list(path_dir, ...)
 \item{path_dir}{String; the path to a directory containing the files to read
 (all must be of appropriate format; see examples).}
 
-\item{...}{Arguments passed to the reader function.}
+\item{...}{Arguments passed to the reader function:
+\itemize{
+\item \code{rdata_list()} and \code{rda_list()} read with \code{get(load(x))} (\code{...} not unused).
+\item \code{rds_list()} reads with \code{\link[readr:read_rds]{readr::read_rds()}}.
+\item \code{csv_list()} reads with \code{\link[readr:read_csv]{readr::read_csv()}}.
+\item \code{delim_list()} reads with \code{\link[readr:read_delim]{readr::read_delim()}}.
+\item \code{tsv_list()} reads with \code{\link[readr:read_tsv]{readr::read_tsv()}}.
+}}
 }
 \value{
 A list of dataframes.
