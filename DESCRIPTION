@@ -24,12 +24,14 @@ Imports:
     readxl,
     rlang,
     writexl,
-    tibble
+    tibble,
+    fgeo.map
 Suggests: 
     covr,
     testthat
-Remotes: 
-    forestgeo/fgeo.tool
+Remotes:  
+    forestgeo/fgeo.tool,
+    forestgeo/fgeo.map
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
