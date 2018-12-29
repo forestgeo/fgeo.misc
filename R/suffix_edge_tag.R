@@ -53,7 +53,7 @@ suffix_tags_beyond_edge <- function(x, .match, suffix, x_q = 20, y_q = x_q) {
     to_tag <- x[are_to_tag, ]
     # Suffix edgy tags
     # FIXME :::
-    x[are_to_tag, "tag"] <- fgeo.map:::suffix_match(
+    x[are_to_tag, "tag"] <- fgeo.plot:::suffix_match(
       string = to_tag[["tag"]], 
       to_match = to_tag[["status"]], 
       .match = .match,
