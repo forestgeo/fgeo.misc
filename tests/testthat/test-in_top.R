@@ -34,4 +34,5 @@ test_that("works with doubles", {
 
 test_that("Errs with informative message", {
   expect_error(top(list(1, 2)), "must be atomic")
+  expect_error(top(1, n = "a"), "must be numeric")
 })

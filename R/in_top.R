@@ -1,7 +1,7 @@
 #' Pick the top `n` values from the head or tail of a vector.
 #'
 #' @param x An atomic vector.
-#' @param n A single integer.
+#' @param n A single integer. Doubles are silently coerced to integer.
 #'
 #' @return
 #'
@@ -27,9 +27,7 @@
 #' @export
 top <- function(x, n = 1L) {
   if (n < 0) {
-    return(
-      first_n(x, n, tail)
-    )
+    return(first_n(x, n, tail))
   }
   
   first_n(x, n, head)
@@ -40,5 +38,9 @@ in_top <- function(x, n = 1L) {
 }
 
 first_n <- function(x, n, .f) {
+  if (!is.numeric(n)) {
+    abort("`n` must be numeric")
+  }
+  
   .f(sort(unique(x)), abs(as.integer(n)))
 }
