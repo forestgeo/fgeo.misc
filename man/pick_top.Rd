@@ -47,10 +47,12 @@ identical(pick_top(df, var = y), pick_top(df, var = -1))
 pick_top(df, y, n = 2)
 # Negative values select from the tail
 pick_top(df, y, n = -2)
+
 }
 \seealso{
 \link[dplyr:pull]{dplyr::pull}, \link[dplyr:top_n]{dplyr::top_n}, \code{\link[utils:head]{utils::head()}}, \code{\link[utils:tail]{utils::tail()}}.
 
-Other general functions to pick or drop rows of a dataframe: \code{\link{pick_recensus}}
+Other general functions to pick or drop rows of a dataframe: \code{\link{in_top}},
+  \code{\link{pick_recensus}}
 }
 \concept{general functions to pick or drop rows of a dataframe}

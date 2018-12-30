@@ -20,8 +20,6 @@
 #' @seealso [dplyr::pull], [dplyr::top_n], [utils::head()], [utils::tail()].
 #'
 #' @return A filtered version of the input dataset.
-#' @export
-#' @family general functions to pick or drop rows of a dataframe
 #'
 #' @examples
 #' df <- data.frame(x = 1:9, y = letters[1:3], stringsAsFactors = FALSE)
@@ -38,6 +36,9 @@
 #' pick_top(df, y, n = 2)
 #' # Negative values select from the tail
 #' pick_top(df, y, n = -2)
+#' 
+#' @family general functions to pick or drop rows of a dataframe
+#' @export
 pick_top <- function(.data, var, n = 1) {
   var <- enquo(var)
   pulled <- dplyr::pull(.data, !!var)
