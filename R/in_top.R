@@ -3,7 +3,9 @@
 #' @param x An atomic vector.
 #' @param n A single integer. Doubles are silently coerced to integer.
 #'
-#' @return
+#' @return 
+#'   * `top()` returns a vector of the same type as the input.
+#'   * `in_top()` returns a logical vector.
 #'
 #' @examples
 #' 
@@ -24,6 +26,25 @@
 #' subset(mtcars, in_top(cyl) & in_top(carb))
 #' 
 #' subset(mtcars, in_top(cyl, -2L))
+#' 
+#' # Careful: Remember that `FALSE` evaluates to 0
+#' lgl <- c(TRUE, FALSE, TRUE)
+#' int <- as.integer(lgl)
+#' int
+#' 
+#' top(lgl)
+#' top(int)
+#' 
+#' top(lgl, -1)
+#' top(int, -1)
+#' 
+#' @family general functions to pick or drop rows of a dataframe
+#' @export
+in_top <- function(x, n = 1L) {
+  x %in% top(x, n)
+}
+
+#' @rdname in_top
 #' @export
 top <- function(x, n = 1L) {
   if (n < 0) {
@@ -31,10 +52,6 @@ top <- function(x, n = 1L) {
   }
   
   first_n(x, n, head)
-}
-
-in_top <- function(x, n = 1L) {
-  x %in% top(x, n)
 }
 
 first_n <- function(x, n, .f) {
