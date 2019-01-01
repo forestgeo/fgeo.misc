@@ -24,7 +24,9 @@ xlsheets_list <- function(path) {
 
 #' Import excel files from a directory into a list.
 #'
-#' @inherit fgeo.tool::dir_list
+#' @param path_dir String; the path to a directory containing the files to read
+#'   (all must be of appropriate format; see examples).
+#' @param ... Arguments passed to the reader function.
 #' @examples
 #' path_xl <- misc_example("xl")
 #' path_xl
