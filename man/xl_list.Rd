@@ -13,23 +13,10 @@ xlbooks_list(path_dir, ...)
 \item{path_dir}{String; the path to a directory containing the files to read
 (all must be of appropriate format; see examples).}
 
-\item{...}{Arguments passed to the reader function:
-\itemize{
-\item \code{rdata_list()} and \code{rda_list()} read with \code{get(load(x))} (\code{...} not unused).
-\item \code{rds_list()} reads with \code{\link[readr:read_rds]{readr::read_rds()}}.
-\item \code{csv_list()} reads with \code{\link[readr:read_csv]{readr::read_csv()}}.
-\item \code{delim_list()} reads with \code{\link[readr:read_delim]{readr::read_delim()}}.
-\item \code{tsv_list()} reads with \code{\link[readr:read_tsv]{readr::read_tsv()}}.
-}}
-}
-\value{
-A list of dataframes.
+\item{...}{Arguments passed to the reader function.}
 }
 \description{
-These functions read from a specific directory where every file has its own extension
-as indicated by each function's name. Notice that function names have the format
-input_output, i.e. file-extension_list. If none of these functions do what
-you want, create your own with \code{\link[=read_with]{read_with()}}.
+Import excel files from a directory into a list.
 }
 \examples{
 path_xl <- misc_example("xl")
@@ -40,7 +27,4 @@ xl_list(path_xl)
 path_books <- misc_example("multiple_workbooks")
 dir(path_books)
 xlbooks_list(path_books)
-}
-\seealso{
-Other general functions to import data: \code{\link{read_with}}
 }
