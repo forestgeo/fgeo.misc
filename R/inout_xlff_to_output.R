@@ -219,7 +219,7 @@ join_and_date <- function(.x) {
 
   # Collapse into a single dataframe, add variable, and join with date
   not_root_dfm %>%
-    fgeo.tool::list_df() %>%
+    list_df() %>%
     dplyr::mutate(unique_stem = paste0(.data$tag, "_", .data$stem_tag)) %>%
     dplyr::left_join(date, by = "submission_id")
 }

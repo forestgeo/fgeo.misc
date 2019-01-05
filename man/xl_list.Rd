@@ -2,15 +2,14 @@
 % Please edit documentation in R/xlsheets_list.R
 \name{xl_list}
 \alias{xl_list}
-\alias{xlbooks_list}
 \title{Import excel files from a directory into a list.}
 \usage{
-xl_list(path_dir, ...)
+xl_list(path)
 
-xlbooks_list(path_dir, ...)
+xl_list(path)
 }
 \arguments{
-\item{path_dir}{String; the path to a directory containing the files to read
+\item{path}{String; the path to a directory containing the files to read
 (all must be of appropriate format; see examples).}
 
 \item{...}{Arguments passed to the reader function.}
@@ -23,8 +22,4 @@ path_xl <- misc_example("xl")
 path_xl
 dir(path_xl)
 xl_list(path_xl)
-
-path_books <- misc_example("multiple_workbooks")
-dir(path_books)
-xlbooks_list(path_books)
 }
