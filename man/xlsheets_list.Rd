@@ -16,13 +16,10 @@ xlsheets_list(path)
 A list of dataframes.
 }
 \description{
-A useful complement of this function is \code{\link[=list_csv]{list_csv()}}.
+Import mapping each spreadsheet of an excel file to a dataframe in a list.
 }
 \examples{
 xlsheets_list(misc_example("multiple_sheets.xlsx"))
-}
-\seealso{
-\code{\link[=list_csv]{list_csv()}}.
 }
 \concept{functions to handle multiple spreadsheets of an excel workbook.}
 \concept{general functions to import data}
