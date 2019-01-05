@@ -194,10 +194,8 @@ and (4) "single_stems".</p></li>
 <span class='no'>dir_out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/tempfile'>tempdir</a></span>()
 
 <span class='co'># Output a csv file</span>
-<span class='fu'>xlff_to_csv</span>(<span class='no'>dir_in</span>, <span class='no'>dir_out</span>)</div><div class='output co'>#&gt; <span class='message'>readxl works best with a newer version of the tibble package.</span>
-#&gt; <span class='message'>You currently have tibble v1.4.2.</span>
-#&gt; <span class='message'>Falling back to column name repair from tibble &lt;= v1.4.2.</span>
-#&gt; <span class='message'>Message displays once per session.</span></div><div class='input'>
+<span class='fu'>xlff_to_csv</span>(<span class='no'>dir_in</span>, <span class='no'>dir_out</span>)
+
 <span class='co'># Confirm</span>
 <span class='fu'><a href='http://fs.r-lib.org/reference/path_file.html'>path_file</a></span>(<span class='fu'><a href='http://fs.r-lib.org/reference/dir_ls.html'>dir_ls</a></span>(<span class='no'>dir_out</span>, <span class='kw'>regexp</span> <span class='kw'>=</span> <span class='st'>"new_stem.*csv$"</span>))</div><div class='output co'>#&gt; new_stem_1.csv new_stem_2.csv </div><div class='input'>
 <span class='co'># Also possible to output excel and a list of dataframe. See next section.</span>

@@ -1,10 +1,7 @@
 #' Import mapping each spreadsheet of an excel file to a dataframe in a list.
 #'
-#' A useful complement of this function is [list_csv()].
-#'
 #' @param path A path to a single excel file.
 #'
-#' @seealso [list_csv()].
 #' @family functions to handle multiple spreadsheets of an excel workbook.
 #' @family general functions to import data
 #'

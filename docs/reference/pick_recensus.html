@@ -115,7 +115,7 @@ help you solve more general problems." />
     
     <p>Based on a reference dataset <code>x</code>, this function helps you
 identify stems that remain to be recensused in a dataset <code>y</code>. This
-function does the same work as <code><a href='http://dplyr.tidyverse.org/reference/join.html'>dplyr::anti_join()</a></code>. The only difference is
+function does the same work as <code><a href='https://www.rdocumentation.org/packages/dplyr/topics/join'>dplyr::anti_join()</a></code>. The only difference is
 that the signature of <code>pick_recensus()</code> is a little simpler (irrelevant
 arguments hidden via <code>...</code>) to focus your attention on the arguments that are
 most useful in helping you identify stems to recensus. This function also
@@ -151,7 +151,7 @@ For example, <code>by = c("a" = "b")</code> will match <code>x.a</code> to
     </tr>
     <tr>
       <th>...</th>
-      <td><p>Other parameters passed onto <a href='http://dplyr.tidyverse.org/reference/join.html'>dplyr::anti_join</a>.</p></td>
+      <td><p>Other parameters passed onto <a href='https://www.rdocumentation.org/packages/dplyr/topics/join'>dplyr::anti_join</a>.</p></td>
     </tr>
     </table>
     
@@ -203,7 +203,7 @@ eval (implemented via the <strong>rlang</strong> package). A good place to start
 #&gt; </span><span style='color: #555555;'>1</span><span> 02_1        001    
 #&gt; </span><span style='color: #555555;'>2</span><span> 04_1        002    
 #&gt; </span><span style='color: #555555;'>3</span><span> 05_1        002    </div><div class='input'>
-<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/reexports.html'>tribble</a></span>(
+<span class='no'>y2</span> <span class='kw'>&lt;-</span> <span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/reexports'>tribble</a></span>(
   ~<span class='no'>unq_stem</span>,
      <span class='st'>"01_1"</span>,
      <span class='st'>"02_2"</span>,
@@ -216,7 +216,7 @@ eval (implemented via the <strong>rlang</strong> package). A good place to start
 #&gt; </span><span style='color: #555555;'>2</span><span> 04_1        002    
 #&gt; </span><span style='color: #555555;'>3</span><span> 05_1        002    </div><div class='input'>
 <span class='co'># For this and more general problems you can use `dplyr::*_join()` functions</span>
-<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='http://dplyr.tidyverse.org/reference/join.html'>anti_join</a></span>(<span class='no'>x</span>, <span class='no'>y2</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"unique_stem"</span> <span class='kw'>=</span> <span class='st'>"unq_stem"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
+<span class='kw pkg'>dplyr</span><span class='kw ns'>::</span><span class='fu'><a href='https://www.rdocumentation.org/packages/dplyr/topics/join'>anti_join</a></span>(<span class='no'>x</span>, <span class='no'>y2</span>, <span class='kw'>by</span> <span class='kw'>=</span> <span class='fu'><a href='https://www.rdocumentation.org/packages/base/topics/c'>c</a></span>(<span class='st'>"unique_stem"</span> <span class='kw'>=</span> <span class='st'>"unq_stem"</span>))</div><div class='output co'>#&gt; </span><span style='color: #555555;'># A tibble: 3 x 2</span><span>
 #&gt;   unique_stem quadrat
 #&gt;   </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>       </span><span style='color: #555555;font-style: italic;'>&lt;chr&gt;</span><span>  
 #&gt; </span><span style='color: #555555;'>1</span><span> 02_1        001    
