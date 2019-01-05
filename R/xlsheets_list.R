@@ -21,7 +21,7 @@ xlsheets_list <- function(path) {
 
 #' Import excel files from a directory into a list.
 #'
-#' @param path_dir String; the path to a directory containing the files to read
+#' @param path String; the path to a directory containing the files to read
 #'   (all must be of appropriate format; see examples).
 #' @param ... Arguments passed to the reader function.
 #' @examples
@@ -29,17 +29,17 @@ xlsheets_list <- function(path) {
 #' path_xl
 #' dir(path_xl)
 #' xl_list(path_xl)
-#'
-#' path_books <- misc_example("multiple_workbooks")
-#' dir(path_books)
-#' xlbooks_list(path_books)
 #' @name xl_list
 NULL
 
 #' @rdname xl_list
 #' @export
-xl_list <- fgeo.tool::read_with(readxl::read_excel, regexp = "[.]xls$|[.]xlsx$")
+xl_list <- function(path) {
+  tor::list_any(path, .f = readxl::read_excel, regexp = "[.]xls$|[.]xlsx$")
+}
 
 #' @rdname xl_list
 #' @export
-xlbooks_list <- fgeo.tool::read_with(xlsheets_list, regexp = "[.]xls$|[.]xlsx$")
+xl_list <- function(path) {
+  tor::list_any(path, .f = xlsheets_list, regexp = "[.]xls$|[.]xlsx$")
+}
