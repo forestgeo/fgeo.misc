@@ -32,8 +32,8 @@ Suggests:
     testthat
 Remotes: 
     forestgeo/fgeo.plot,
-    forestgeo/fgeo.tool,
-    maurolepore/tor
+    forestgeo/fgeo.tool@*release,
+    maurolepore/tor@*release
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
