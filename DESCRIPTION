@@ -31,7 +31,7 @@ Suggests:
     covr,
     testthat
 Remotes: 
-    forestgeo/fgeo.plot,
+    forestgeo/fgeo.plot@*release,
     forestgeo/fgeo.tool@*release,
     maurolepore/tor@*release
 Encoding: UTF-8
