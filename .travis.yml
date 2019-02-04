@@ -5,15 +5,13 @@ cache: packages
 
 matrix:
   include:
-  - r: devel
-  - r: release
+  - r: 3.5
+  - r: 3.4
     after_success: Rscript -e 'covr::covr::coveralls()'
     before_deploy: Rscript -e 'remotes::install_cran("pkgdown")'
     deploy:
       provider: script
       script: Rscript -e 'pkgdown::deploy_site_github()'
       skip_cleanup: true
-  - r: oldrel
-  - r: 3.3
-  
+
   
