@@ -16,9 +16,11 @@ convert_unit_at(x, .at, from, to)
 
 \item{to}{the unit to which the measurement is to be converted.}
 
-\item{.at}{A character vector of names or a numeric vector of
-positions. Only those elements corresponding to \code{.at} will be
-modified.}
+\item{.at}{A character vector of names, positive numeric vector of
+positions to include, or a negative numeric vector of positions to
+exlude. Only those elements corresponding to \code{.at} will be modified.
+If the \code{tidyselect} package is installed, you can use \code{vars()} and
+the \code{tidyselect} helpers to select elements.}
 }
 \value{
 An object with the same structure as \code{x} (vector or dataframe).

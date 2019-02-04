@@ -1,15 +1,7 @@
 ## Test environments
 
 * local: mingw32-3.5.2
-* travis: 
-  Passing:
-    release, 
-    oldrel, 
-    3.3, 
-  Failing
-    devel
-    3.1, 
-    3.2, 
+* travis: release, oldrel, 3.3, 
 * r-hub: windows-x86_64-devel, ubuntu-gcc-release, fedora-clang-devel
 * win-builder: windows-x86_64-devel
 
