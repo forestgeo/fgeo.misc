@@ -8,7 +8,6 @@
 #' hide_data_of_class("fgeo.tool", "data.frame")
 #' 
 #' @family functions for developers
-#' @keywords internal
 #' @name find_data_of_class
 NULL
 

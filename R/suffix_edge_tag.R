@@ -30,7 +30,6 @@
 #'   suffix = "_a",
 #'   x_q = 20
 #' )
-#' @keywords internal
 #' @export
 suffix_tags_beyond_edge <- function(x, .match, suffix, x_q = 20, y_q = x_q) {
   stopifnot(

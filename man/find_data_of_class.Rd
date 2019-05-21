@@ -24,4 +24,3 @@ hide_data_of_class("fgeo.tool", "data.frame")
 
 }
 \concept{functions for developers}
-\keyword{internal}

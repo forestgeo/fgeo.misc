@@ -42,7 +42,6 @@
 #' drop_twice_dead(vft)
 #' 
 #' @family functions to pick or drop rows of a ForestGEO dataframe
-#' @keywords internal
 #' @export
 drop_twice_dead <- function(vft) {
   old_nms <- names(vft)

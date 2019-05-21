@@ -30,4 +30,3 @@ name_dfs(dfs2)
 }
 \concept{functions for internal use in other fgeo packages}
 \concept{general functions to deal with names}
-\keyword{internal}

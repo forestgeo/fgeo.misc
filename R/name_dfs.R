@@ -19,7 +19,6 @@
 #' 
 #' @family general functions to deal with names
 #' @family functions for internal use in other fgeo packages
-#' @keywords internal
 #' @export
 name_dfs <- function(dfs, name = "name") {
   check_name_dfs(dfs, name)

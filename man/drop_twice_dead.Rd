@@ -55,4 +55,3 @@ drop_twice_dead(vft)
 Other functions to pick or drop rows of a ForestGEO dataframe: \code{\link{pick_plotname}}
 }
 \concept{functions to pick or drop rows of a ForestGEO dataframe}
-\keyword{internal}
