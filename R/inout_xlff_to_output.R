@@ -1,7 +1,7 @@
 #' Read and wrangle excel-FastField and output dataframes or .csv/.xlsx files.
 #'
 #' These functions read and wrangle excel workbooks produced by the FastField
-#' app and output dataframes (`xlff_to_list()` and `xlff_to_df()`), .csv files
+#' app and output a list of dataframes (`xlff_to_list()`), .csv files
 #' (`xlff_to_csv()`) or .xlsx files (`xlff_to_xl()`). Each dataframe or file
 #' combines all spreadsheets from a single excel workbook in the input
 #' directory. If the input directory has multiple workbooks, the output will be
