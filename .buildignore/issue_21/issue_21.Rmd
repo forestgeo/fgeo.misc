@@ -1,0 +1,66 @@
+---
+title: "Issue 21"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+options(digits = 3)
+
+knitr::opts_chunk$set(
+  comment = "#>",
+  collapse = TRUE,
+  cache = FALSE,
+  out.width = "70%",
+  fig.align = "center",
+  fig.height = 9,
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
+)
+```
+
+Jess,
+
+I downloaded the data (and removed the link).
+
+From the two issues you mention, I think only one is actionable. 
+
+* (not actionable) `xl_to_df()` does not exist in the package. Did it ever existed? I suspect that what you are trying to accomplish it already done by some of the `xlff_to_*()` variants. I have now made the [help file visible on the package website](https://forestgeo.github.io/fgeo.misc/reference/xlff_to_output.html). The examples section should clarify what these functions do.
+
+* (actionable) I changed the code to not-fail when the column `tag` doesn't exist. I'm not sure why isn't there (although you may have explained)--I leave it to you to decide. Now the code produces output but there are a bunch of warnings that I encourage you to read and try to make sense of. See below:
+
+```{r, error=TRUE}
+library(purrr)
+library(dplyr)
+library(readr)
+library(fs)
+library(here)
+
+# install.packages("fgeo.tool")
+library(fgeo.tool)
+# devtools::install_github("forestgeo/fgeo.misc")
+library(fgeo.misc)
+
+packageVersion("fgeo.tool")
+packageVersion("fgeo.misc")
+
+input <- here(".buildignore/issue_21/input")
+
+# The input/ folder contains .xlsx file
+dir_ls(input)
+
+list_of_dataframes <- xlff_to_list(input, first_census = FALSE)
+single_dataframe <- reduce(list_of_dataframes, bind_rows)
+
+as_tibble(single_dataframe)
+
+glimpse(single_dataframe)
+
+# You can now save it as you please, for example, as a .csv
+output <- here(".buildignore/issue_21/output/single_dataframe.csv")
+write_csv(single_dataframe, path = output)
+
+# The output/ folder now contains the file we just saved
+dir_ls(path_dir(output))
+```
+

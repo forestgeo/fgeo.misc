@@ -216,10 +216,19 @@ join_and_date <- function(.x) {
   not_root_dfm <- purrr::keep(.x, is_not_root)
 
   # Collapse into a single dataframe, add variable, and join with date
-  not_root_dfm %>%
-    list_df() %>%
-    dplyr::mutate(unique_stem = paste0(.data$tag, "_", .data$stem_tag)) %>%
+  single_df <- list_df(not_root_dfm)
+  
+  if (rlang::has_name(single_df, "tag")) {
+    result <- single_df %>% 
+      dplyr::mutate(unique_stem = paste0(.data$tag, "_", .data$stem_tag)) %>%
+      dplyr::left_join(date, by = "submission_id")
+    return(result)
+  }
+  
+  result <- single_df %>% 
+    dplyr::mutate(unique_stem = paste0("notag_", .data$stem_tag)) %>%
     dplyr::left_join(date, by = "submission_id")
+  result
 }
 
 check_dir_in <- function(dir_in, print_as) {
