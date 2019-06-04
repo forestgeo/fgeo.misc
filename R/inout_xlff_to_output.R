@@ -83,7 +83,7 @@ xlff_to_file <- function(ext, fun_write) {
     check_dir_out(dir_out = dir_out, print_as = "`dir_out`")
     lst <- xlff_to_list(dir_in = dir_in, first_census = first_census)
     files <- fs::path_ext_remove(names(lst))
-    paths <- fs::path(dir_out, fs::path_ext_set(files, ext))
+    paths <- fs::path(dir_out, purrr::map(files, ~ fs::path_ext_set(.x, ext)))
     purrr::walk2(lst, paths, fun_write)
   }
 }
