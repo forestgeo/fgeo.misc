@@ -10,7 +10,7 @@ test_that("returns expected spliced list", {
   
   codes <- lookup(look$old, look$new)
   expect_type(codes, "list")
-  expect_is(codes, "spliced")
+  expect_is(codes, "rlang_box_splice")
   
   x <- c("a", "c", "a", "b", "a")
   recoded <- c("apple", "c", "apple", "banana", "apple")
