@@ -290,8 +290,12 @@ has_class_df <- function(x) {
 #' @examples
 #' misc_example("xl")
 #' dir(misc_example("xl"))
-misc_example <- function(path) {
-  system.file("extdata", path, package = "fgeo.misc")
+misc_example <- function(path = NULL) {
+  if (is.null(path)) {
+    dir(system.file("extdata", package = "fgeo.misc"))
+  } else {
+    system.file("extdata", path, package = "fgeo.misc", mustWork = TRUE)
+  }
 }
 
 nms_tidy <- function(x) {
