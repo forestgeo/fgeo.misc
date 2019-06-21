@@ -1,6 +1,17 @@
 Issue 21
 ================
 
+> we would like to have the “Team” column from the root worksheet added
+> to each stem similar to the date.
+
+> Also, Harvard Forest would like to use the R code as well. Their data
+> includes a “Sub\_Quadrat” column on the root sheet of the workbook
+> that currently doesn’t populate like the “Team” column when running
+> the code.
+
+> I realize there will be little differences from site to site like
+> this, so not sure how to avoid these issues going forward.
+
 ``` r
 suppressPackageStartupMessages({
   library(tidyverse)
@@ -14,7 +25,7 @@ suppressPackageStartupMessages({
 })
 
 packageVersion("fgeo.tool")
-#> [1] '1.2.4'
+#> [1] '1.2.5'
 packageVersion("fgeo.misc")
 #> [1] '0.0.0.9003'
 ```
@@ -32,10 +43,10 @@ manually. Just rename the file to give it the correct extension; then
 the program associated to that extension should know how to open it.)
 
 ``` r
-input <- here(".buildignore/issue_21/input")
+input <- here(".buildignore/input")
 dir_ls(input)
-#> C:/Users/LeporeM/Documents/Dropbox/git/fgeo.misc/.buildignore/issue_21/input/15106_13112019-05-02_AS_t.xlsx
-#> C:/Users/LeporeM/Documents/Dropbox/git/fgeo.misc/.buildignore/issue_21/input/15712019-05-10MS_t.xlsx
+#> /home/mauro/fgeo.misc/.buildignore/input/15106_13112019-05-02_AS_t.xlsx
+#> /home/mauro/fgeo.misc/.buildignore/input/15712019-05-10MS_t.xlsx
 
 output <- here(".buildignore/issue_21/output")
 xlff_to_csv(input, output, first_census = FALSE)
@@ -49,9 +60,9 @@ xlff_to_csv(input, output, first_census = FALSE)
 #> Warning: Filling every cero-row dataframe with NAs (new_secondary_stems).
 
 dir_ls(output)
-#> C:/Users/LeporeM/Documents/Dropbox/git/fgeo.misc/.buildignore/issue_21/output/15106_13112019-05-02_AS_t.csv
-#> C:/Users/LeporeM/Documents/Dropbox/git/fgeo.misc/.buildignore/issue_21/output/15712019-05-10MS_t.csv
-#> C:/Users/LeporeM/Documents/Dropbox/git/fgeo.misc/.buildignore/issue_21/output/single_dataframe.csv
+#> /home/mauro/fgeo.misc/.buildignore/issue_21/output/15106_13112019-05-02_AS_t.csv
+#> /home/mauro/fgeo.misc/.buildignore/issue_21/output/15712019-05-10MS_t.csv
+#> /home/mauro/fgeo.misc/.buildignore/issue_21/output/single_dataframe.csv
 ```
 
 > Can I use xlff\_to\_xl to write multiple files to one location?
