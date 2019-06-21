@@ -17,7 +17,7 @@ Useful links:
 
 }
 \author{
-\strong{Maintainer}: Mauro Lepore \email{leporem@si.edu} [contractor]
+\strong{Maintainer}: Mauro Lepore \email{maurolepore@gmail.com} [contractor]
 
 Other contributors:
 \itemize{
