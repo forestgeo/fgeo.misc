@@ -3,9 +3,7 @@ library(purrr)
 library(readr)
 library(fs)
 
-context("xlff_to_list")
-
-test_that("outputs expected dataframe", {
+test_that("xlff_to_list outputs expected dataframe", {
   out <- xlff_to_list(misc_example("two_files"))
   expect_is(out, "list")
 
@@ -19,11 +17,14 @@ test_that("outputs expected dataframe", {
   expect_named(out[[1]], nms, ignore.order = TRUE)
 })
 
+test_that("xlff_to_list errs if root_columns aren't root columns", {
+  expect_error(
+    xlff_to_list(misc_example("two_files"), root_columns = "bad"),
+    "must be names of the root sheet"
+  )
+})
 
-
-context("xlff_to_xl")
-
-test_that("works as expected", {
+test_that("xlff_to_xl works as expected", {
   output <- tempdir()
 
   expect_silent(xlff_to_xl(misc_example("new_stem_1"), output))
@@ -36,18 +37,14 @@ test_that("works as expected", {
   expect_is(readxl::read_xlsx(matching_path), "data.frame")
 })
 
-
-
-context("xlff_to_csv")
-
-test_that("errs if `dir` does not exist", {
+test_that("xlff_to_csv errs if `dir` does not exist", {
   expect_error(
     xlff_to_csv("invalid_dir"),
     "must match a valid directory"
   )
 })
 
-test_that("errs without excel file", {
+test_that("xlff_to_csv errs without excel file", {
   # Empty tempdir()
   file_delete(dir_ls(tempdir()))
 
@@ -55,13 +52,13 @@ test_that("errs without excel file", {
   expect_error(xlff_to_csv(tempdir()), msg)
 })
 
-test_that("errs with informative message with input of wrong type", {
+test_that("xlff_to_csv errs with informative message with input of wrong type", {
   not_a_string <- 1
   expect_error(xlff_to_csv(not_a_string))
   expect_error(xlff_to_csv("./sheets", not_a_string))
 })
 
-test_that("works as expected", {
+test_that("xlff_to_csv works as expected", {
   output <- tempdir()
   expect_silent(
     xlff_to_csv(misc_example("new_stem_1"), output)
@@ -76,7 +73,7 @@ test_that("works as expected", {
   expect_true("sheet" %in% output_files)
 })
 
-test_that("warns if it detects no new stem and fills cero-row dataframes", {
+test_that("xlff_to_csv warns if it detects no new stem and fills cero-row dfs", {
   output <- tempdir()
   expect_warning(
     xlff_to_csv(misc_example("new_stem_0"), output),
@@ -88,14 +85,14 @@ test_that("warns if it detects no new stem and fills cero-row dataframes", {
   )
 })
 
-test_that("warns if it detects no recruits (#11)", {
+test_that("xlff_to_csv warns if it detects no recruits (#11)", {
   expect_warning(
     xlff_to_csv(misc_example("recruits_none"), tempdir()),
     "recruits"
   )
 })
 
-test_that("outputs column date (#12)", {
+test_that("xlff_to_csv outputs column date (#12)", {
   output <- tempdir()
   xlff_to_csv(misc_example("new_stem_1"), output)
 
@@ -104,7 +101,7 @@ test_that("outputs column date (#12)", {
   expect_equal(nrow(filter(exported, is.na(date))), 0)
 })
 
-test_that("outputs column codes with commas replaced by semicolon (#13)", {
+test_that("xlff_to_csv outputs col codes with ',' replaced by ';' (#13)", {
   output <- tempdir()
   xlff_to_csv(misc_example("new_stem_1"), output)
 
@@ -119,20 +116,37 @@ test_that("outputs column codes with commas replaced by semicolon (#13)", {
   expect_false(has_comma)
 })
 
-test_that("allows first_census", {
-  output_dir <- tempdir()
+test_that("xlff_to_csv allows first_census", {
   out <- xlff_to_list(misc_example("first_census"), first_census = TRUE)[[1]]
-
+  
   nms <- c(
     "submission_id", "quadrat", "tag", "stem_tag", "species",
     "species_code", "dbh", "status", "codes", "notes", "pom", "sheet",
     "section_id", "unique_stem", "date",
     "start_form_time_stamp", "end_form_time_stamp"
   )
+  
   expect_equal(sort(names(out)), sort(nms))
 })
 
-test_that("passes with input missing key sheets (#33)", {
+test_that("xlff_to_csv is sensitive to `root_columns` (#22)", {
+  out <- xlff_to_list(
+    misc_example("first_census"), 
+    first_census = TRUE, 
+    root_columns = "Team"
+  )[[1]]
+  
+  nms <- c(
+    "submission_id", "quadrat", "tag", "stem_tag", "species",
+    "species_code", "dbh", "status", "codes", "notes", "pom", "sheet",
+    "section_id", "unique_stem", "start_form_time_stamp", "end_form_time_stamp",
+    "date", "team"
+  )
+  
+  expect_equal(sort(names(out)), sort(nms))
+})
+
+test_that("xlff_to_csv passes with input missing key sheets (#33)", {
   expect_warning(
     xlff_to_list(misc_example("missing_key")),
     "Adding missing sheets: original_stems, new_secondary_stems, recruits, root"

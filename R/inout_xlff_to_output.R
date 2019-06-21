@@ -27,6 +27,9 @@
 #' @param dir_out String giving the directory where to write .csv files to.
 #' @param first_census Use `TRUE` if this is your first census. Use `FALSE`
 #'   (default) if this is not your first census but a recensus.
+#' @param root_columns String. Lowercase name of column(s) in the root sheet (
+#'   e.g. c("date", "team")). This is useful when you data has non-standard 
+#'   columns.
 #'
 #' @return `xlff_to_csv()` and `xlff_to_xl()` write a .csv or excel (.xlsx) file
 #'   per workbook -- combining all spreadsheets. `xlff_to_list` outputs a list
@@ -78,14 +81,25 @@
 #' @name xlff_to_output
 NULL
 
-xlff_to_file <- function(ext, fun_write) {
-    function(dir_in, dir_out = "./", first_census = FALSE) {
+xlff_to_file <- function(ext, fun_write, root_columns = NULL) {
+  function(dir_in, dir_out = "./", first_census = FALSE) {
     check_dir_out(dir_out = dir_out, print_as = "`dir_out`")
-    lst <- xlff_to_list(dir_in = dir_in, first_census = first_census)
+    
+    lst <- xlff_to_list(
+      dir_in = dir_in, 
+      first_census = first_census,
+      root_columns = get_root_cols(root_columns)
+    )
+    
     files <- fs::path_ext_remove(names(lst))
     paths <- fs::path(dir_out, purrr::map(files, ~ fs::path_ext_set(.x, ext)))
     purrr::walk2(lst, paths, fun_write)
   }
+}
+
+get_root_cols <- function(x) {
+  if (is.null(x)) return("date")
+  c("date", tolower(x))
 }
 
 #' @export
@@ -98,26 +112,33 @@ xlff_to_xl <- xlff_to_file("xlsx", writexl::write_xlsx)
 
 #' @export
 #' @rdname xlff_to_output
-xlff_to_list <- function(dir_in, first_census = FALSE) {
+xlff_to_list <- function(dir_in, first_census = FALSE, root_columns = NULL) {
   check_dir_in(dir_in = dir_in, print_as = "`dir_in`")
   out <- purrr::map(
     xl_workbooks_to_chr(dir_in),
-    xlff_to_list_each, first_census = first_census
+    xlff_to_list_each, 
+    first_census = first_census, 
+    root_columns = get_root_cols(root_columns)
   )
   rlang::set_names(out, basename(names(out)))
 }
 
-#' Do xlff_to_list() for each excel file.
 #' @noRd
-xlff_to_list_each <- function(file, first_census = FALSE) {
+xlff_to_list_each <- function(file, 
+                              first_census = FALSE, 
+                              root_columns) {
   dfm_list <- nms_tidy(xlsheets_list(file))
-
+  
   if (first_census) {
     key <- key_first_census()
     dfm_list <- ensure_key_sheets(dfm_list, key)
   } else {
     key <- key_recensus()
     dfm_list <- ensure_key_sheets(dfm_list, key)
+  }
+  
+  if (!all(root_columns %in% tolower(names(dfm_list$root)))) {
+    rlang::abort("`root_columns` must be names of the root sheet.")
   }
 
   # Piping functions to avoid useless intermediate variables
@@ -137,8 +158,14 @@ xlff_to_list_each <- function(file, first_census = FALSE) {
     name_dfs(name = "sheet") %>%
     # Avoid merge errors
     coerce_as_character()
-
-  with_date <- join_and_date(sane)
+  
+  add_root_columns <- function(x, root_columns) {
+    purrr::map_df(root_columns, ~add_root_column(x, root_column = .x))
+  }
+  with_date <- tibble::as_tibble(
+    add_root_columns(sane, root_columns = root_columns)
+  )
+  
   # In columns matching "codes", replace commas by semicolon
   .df <- purrr::modify_if(
     with_date, grepl("codes", names(with_date)), ~gsub(",", ";", .x)
@@ -156,7 +183,7 @@ ensure_key_sheets <- function(x, key) {
       "Adding missing sheets: ", commas(missing_sheets), "."
     )
     warn(msg)
-
+    
     missing_appendix <- purrr::map(key[missing_sheets], str_df)
     x <- append(x, missing_appendix)
   }
@@ -207,28 +234,24 @@ coerce_as_character <- function(.x, ...) {
   purrr::map(.x, ~purrr::modify(., .f = as.character, ...))
 }
 
-join_and_date <- function(.x) {
-  # From `root`, pull only `date` (plus a column to merge by)
-  date <- .x[["root"]][c("submission_id", "date")]
-
-  # Join data from all sheets except from `root`
-  is_not_root <- !grepl("root", names(.x))
-  not_root_dfm <- purrr::keep(.x, is_not_root)
-
-  # Collapse into a single dataframe, add variable, and join with date
-  single_df <- list_df(not_root_dfm)
-  
-  if (rlang::has_name(single_df, "tag")) {
-    result <- single_df %>% 
-      dplyr::mutate(unique_stem = paste0(.data$tag, "_", .data$stem_tag)) %>%
-      dplyr::left_join(date, by = "submission_id")
-    return(result)
+add_root_column <- function(x, root_column) {
+  x_ <- list_df(discard_root(x))
+  y <- x[["root"]][c("submission_id", root_column)]
+  if (rlang::has_name(x_, "tag")) {
+    return(
+      add_values_to_unique_stems(x_, y, prefix = paste0(x_$tag, "_"))
+    )
   }
-  
-  result <- single_df %>% 
-    dplyr::mutate(unique_stem = paste0("notag_", .data$stem_tag)) %>%
-    dplyr::left_join(date, by = "submission_id")
-  result
+  add_values_to_unique_stems(x_, y, prefix = "notag_")
+}
+
+discard_root <- function(x) {
+  purrr::discard(x, grepl("root", names(x)))
+}
+
+add_values_to_unique_stems <- function(x, y, prefix) {
+  x_ <- dplyr::mutate(x, unique_stem = paste0(prefix, .data$stem_tag))
+  dplyr::left_join(x_, y, by = "submission_id")
 }
 
 check_dir_in <- function(dir_in, print_as) {
