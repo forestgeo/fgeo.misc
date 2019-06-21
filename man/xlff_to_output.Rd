@@ -11,7 +11,7 @@ xlff_to_csv(dir_in, dir_out = "./", first_census = FALSE)
 
 xlff_to_xl(dir_in, dir_out = "./", first_census = FALSE)
 
-xlff_to_list(dir_in, first_census = FALSE)
+xlff_to_list(dir_in, first_census = FALSE, root_columns = NULL)
 }
 \arguments{
 \item{dir_in}{String giving the directory containing the excel workbooks
@@ -21,6 +21,10 @@ to read from.}
 
 \item{first_census}{Use \code{TRUE} if this is your first census. Use \code{FALSE}
 (default) if this is not your first census but a recensus.}
+
+\item{root_columns}{String. Lowercase name of column(s) in the root sheet (
+e.g. c("date", "team")). This is useful when you data has non-standard
+columns.}
 }
 \value{
 \code{xlff_to_csv()} and \code{xlff_to_xl()} write a .csv or excel (.xlsx) file

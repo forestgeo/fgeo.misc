@@ -44,7 +44,7 @@ Thanks! The file extensions should now be correct. The problem is a bug (I think
 (FYI, notice that the file extension is something you can change manually. Just rename the file to give it the correct extension; then the program associated to that extension should know how to open it.)
 
 ```{r}
-input <- here(".buildignore/issue_21/input")
+input <- here(".buildignore/input")
 dir_ls(input)
 
 output <- here(".buildignore/issue_21/output")

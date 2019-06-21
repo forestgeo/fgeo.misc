@@ -4,7 +4,7 @@
 \alias{misc_example}
 \title{Path to directory containing example data.}
 \usage{
-misc_example(path)
+misc_example(path = NULL)
 }
 \arguments{
 \item{path}{Path to a file (with extension) from inst/extdata/.}
