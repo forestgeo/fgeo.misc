@@ -102,14 +102,14 @@ xlff_to_list <- function(dir_in, first_census = FALSE) {
   check_dir_in(dir_in = dir_in, print_as = "`dir_in`")
   out <- purrr::map(
     xl_workbooks_to_chr(dir_in),
-    xlff_to_list_, first_census = first_census
+    xlff_to_list_each, first_census = first_census
   )
   rlang::set_names(out, basename(names(out)))
 }
 
 #' Do xlff_to_list() for each excel file.
 #' @noRd
-xlff_to_list_ <- function(file, first_census = FALSE) {
+xlff_to_list_each <- function(file, first_census = FALSE) {
   dfm_list <- nms_tidy(xlsheets_list(file))
 
   if (first_census) {
