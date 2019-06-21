@@ -11,7 +11,7 @@ xlff_to_csv(dir_in, dir_out = "./", first_census = FALSE)
 
 xlff_to_xl(dir_in, dir_out = "./", first_census = FALSE)
 
-xlff_to_list(dir_in, first_census = FALSE, root_columns = "date")
+xlff_to_list(dir_in, first_census = FALSE, root_columns = NULL)
 }
 \arguments{
 \item{dir_in}{String giving the directory containing the excel workbooks
