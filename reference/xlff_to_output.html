@@ -68,7 +68,7 @@ multiple dataframes, multiple .csv files, or multiple .excel files." />
       </button>
       <span class="navbar-brand">
         <a class="navbar-link" href="../index.html">fgeo.misc</a>
-        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9003</span>
+        <span class="version label label-default" data-toggle="tooltip" data-placement="bottom" title="Released version">0.0.0.9004</span>
       </span>
     </div>
 
@@ -127,7 +127,7 @@ multiple dataframes, multiple .csv files, or multiple .excel files.</p>
 
 <span class='fu'>xlff_to_xl</span>(<span class='no'>dir_in</span>, <span class='kw'>dir_out</span> <span class='kw'>=</span> <span class='st'>"./"</span>, <span class='kw'>first_census</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)
 
-<span class='fu'>xlff_to_list</span>(<span class='no'>dir_in</span>, <span class='kw'>first_census</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</pre>
+<span class='fu'>xlff_to_list</span>(<span class='no'>dir_in</span>, <span class='kw'>first_census</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>, <span class='kw'>root_columns</span> <span class='kw'>=</span> <span class='kw'>NULL</span>)</pre>
     
     <h2 class="hasAnchor" id="arguments"><a class="anchor" href="#arguments"></a>Arguments</h2>
     <table class="ref-arguments">
@@ -145,6 +145,12 @@ to read from.</p></td>
       <th>first_census</th>
       <td><p>Use <code>TRUE</code> if this is your first census. Use <code>FALSE</code>
 (default) if this is not your first census but a recensus.</p></td>
+    </tr>
+    <tr>
+      <th>root_columns</th>
+      <td><p>String. Lowercase name of column(s) in the root sheet (
+e.g. c("date", "team")). This is useful when you data has non-standard
+columns.</p></td>
     </tr>
     </table>
     
@@ -209,7 +215,7 @@ and (4) "single_stems".</p></li>
 <span class='co'># Output list of dataframes (one per input workbook -- here only one)</span>
 <span class='no'>lst</span> <span class='kw'>&lt;-</span> <span class='fu'>xlff_to_list</span>(<span class='no'>dir_in</span>, <span class='kw'>first_census</span> <span class='kw'>=</span> <span class='fl'>TRUE</span>)
 <span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>lst</span>, <span class='kw'>give.attr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; List of 1
-#&gt;  $ census.xlsx:'data.frame':	54 obs. of  17 variables:
+#&gt;  $ census.xlsx:Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	54 obs. of  17 variables:
 #&gt;   ..$ submission_id        : chr [1:54] "c01b37d5-2c30-4086-b4a1-78327dfa0a9a" "efd8e991-2e34-40c8-b503-44def6e542d9" "7997596a-c94e-47b6-ab28-4b0e6a94e9df" "a4e952e6-dcad-4410-aba9-36918fa1fa62" ...
 #&gt;   ..$ start_form_time_stamp: chr [1:54] "2018.05.14 11:55:32 AM" "2018.05.14 01:10:33 PM" "2018.05.14 04:14:23 PM" "2018.05.14 04:38:45 PM" ...
 #&gt;   ..$ end_form_time_stamp  : chr [1:54] "2018.05.14 06:03:12 PM" "2018.05.14 06:03:11 PM" "2018.05.14 06:03:11 PM" "2018.05.14 06:03:10 PM" ...
@@ -232,7 +238,7 @@ and (4) "single_stems".</p></li>
 <span class='co'># Read back</span>
 <span class='no'>filename</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='http://fs.r-lib.org/reference/path.html'>path</a></span>(<span class='no'>dir_out</span>, <span class='st'>"census.xlsx"</span>)
 <span class='no'>out</span> <span class='kw'>&lt;-</span> <span class='fu'><a href='https://readxl.tidyverse.org/reference/read_excel.html'>read_excel</a></span>(<span class='no'>filename</span>)
-<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>out</span>, <span class='kw'>give.attr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	54 obs. of  17 variables:
+<span class='fu'><a href='https://www.rdocumentation.org/packages/utils/topics/str'>str</a></span>(<span class='no'>out</span>, <span class='kw'>give.attr</span> <span class='kw'>=</span> <span class='fl'>FALSE</span>)</div><div class='output co'>#&gt; Classes ‘tbl_df’, ‘tbl’ and 'data.frame':	108 obs. of  17 variables:
 #&gt;  $ submission_id        : chr  "c01b37d5-2c30-4086-b4a1-78327dfa0a9a" "efd8e991-2e34-40c8-b503-44def6e542d9" "7997596a-c94e-47b6-ab28-4b0e6a94e9df" "a4e952e6-dcad-4410-aba9-36918fa1fa62" ...
 #&gt;  $ start_form_time_stamp: chr  "2018.05.14 11:55:32 AM" "2018.05.14 01:10:33 PM" "2018.05.14 04:14:23 PM" "2018.05.14 04:38:45 PM" ...
 #&gt;  $ end_form_time_stamp  : chr  "2018.05.14 06:03:12 PM" "2018.05.14 06:03:11 PM" "2018.05.14 06:03:11 PM" "2018.05.14 06:03:10 PM" ...
